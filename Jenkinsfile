@@ -14,6 +14,14 @@ pipeline {
         stage('Test') {
             steps {
                 sh './jenkins/scripts/test.sh'
+                input message: 'Lanjutkan ke tahap Deploy?'
+            }
+        }
+        stage('Deploy') {
+            steps {
+                sh './jenkins/scripts/deliver.sh'
+                sleep(time: 1, unit: 'MINUTES')
+                sh './jenkins/scripts/kill.sh'
             }
         }
     }
